@@ -1,0 +1,25 @@
+
+.os-window-button {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    width: 2rem;
+    height: 1.5rem;
+    line-height: 0.5rem;
+
+    border: solid 1px var(--color-bg-2);
+    border-left: solid 1px var(--color-gray);
+    border-top: none;
+
+    /* background-color: var(--color-bg-1); */
+    color: var(--color-light-gray);
+
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 0.25rem;
+}
+
+.red:hover {
+    background-color: var(--color-dark-red);
+}

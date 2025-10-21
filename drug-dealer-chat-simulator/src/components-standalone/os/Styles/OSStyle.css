@@ -1,0 +1,25 @@
+
+:root {
+    --color-bg-1: rgb(111, 103, 99);
+    --color-bg-2: rgb(41, 45, 46);
+    
+    --color-highlight: rgb(150, 135, 125);
+
+    --color-gray: rgb(71, 54, 46);
+    --color-light-gray: rgb(160, 150, 150);
+    --color-dark-red: rgb(222, 85, 85);
+}
+
+.os-background {
+    background: linear-gradient(var(--color-bg-1), var(--color-bg-2));
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    color: white;
+}
+.os-bordered, .os-borders {
+    border-radius: 8px;
+    border: solid 1px var(--color-gray);
+    border-top: solid 1px var(--color-highlight);
+    box-shadow: rgba(55, 55, 55, 0.2) 0px 2px 8px;
+}
