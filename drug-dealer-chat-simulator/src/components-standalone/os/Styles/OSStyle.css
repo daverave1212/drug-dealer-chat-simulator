@@ -8,7 +8,18 @@
     --color-gray: rgb(71, 54, 46);
     --color-light-gray: rgb(160, 150, 150);
     --color-dark-red: rgb(222, 85, 85);
+    
+    
+    
+    --task-bar-height: 2.25rem;
+
+
+
+
+    --z-background: 0;
+    --z-task-bar: 1000000;
 }
+
 
 .os-background {
     background: linear-gradient(var(--color-bg-1), var(--color-bg-2));

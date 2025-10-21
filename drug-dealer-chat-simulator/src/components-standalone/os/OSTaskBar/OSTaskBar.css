@@ -1,0 +1,22 @@
+
+.os-task-bar {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+
+    height: var(--task-bar-height);
+    line-height: var(--task-bar-height);
+    width: 100%;
+
+    z-index: var(--z-task-bar);
+
+    /* text-shadow: 1px 1px 1px rgb(49, 49, 49); */
+    font-size: 1rem;
+
+    border-top: solid 1px rgb(80, 70, 65);
+    background: linear-gradient(var(--color-gray), var(--color-bg-2));
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    color: white;
+}

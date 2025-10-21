@@ -1,0 +1,7 @@
+.desktop {
+    width: 100vw;
+    height: calc(100vh - var(--task-bar-height));
+
+    background-image: url("Desktop.jpg");
+    background-size: cover;
+}
