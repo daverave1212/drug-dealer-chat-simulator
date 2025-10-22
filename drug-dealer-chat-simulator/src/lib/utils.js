@@ -433,6 +433,9 @@ export function htmlToJson(str) {
     let xmlNode = new DOMParser().parseFromString(wrappedStr, 'text/html')
     return xmlNode.children[0]
 }
+export function stopPropagation(evt) {
+    evt.stopPropagation()
+}
 window.xmlToJson = htmlToJson
 export function doesSubstringFromStartWith(string, i, startingWith) {
     let withI = 0

@@ -10,13 +10,21 @@
 
     z-index: var(--z-task-bar);
 
-    /* text-shadow: 1px 1px 1px rgb(49, 49, 49); */
     font-size: 1rem;
 
     border-top: solid 1px rgb(80, 70, 65);
-    background: linear-gradient(var(--color-gray), var(--color-bg-2));
-    padding-left: 0.5rem;
+    background: linear-gradient(rgb(75, 75, 75), var(--color-bg-2));
+    padding-left: 0rem !important;
     padding-right: 0.5rem;
 
-    color: white;
+    color: var(--color-white);
+}
+
+
+.start-menu img {
+    height: 1.25rem;
+}
+
+.start-menu .my-name {
+    line-height: 1.75rem;
 }

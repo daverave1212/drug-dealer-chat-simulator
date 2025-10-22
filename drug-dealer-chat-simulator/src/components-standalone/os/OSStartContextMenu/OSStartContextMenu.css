@@ -1,0 +1,37 @@
+
+.start-context-menu {
+    position: absolute;
+
+    left: 0px;
+    bottom: var(--task-bar-height);
+
+    min-height: 300px;
+    min-width: 300px;
+}
+.start-context-menu .top {
+    line-height: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.start-context-menu .top input {
+    margin-left: calc(-0.5rem + 2.5%);
+    width: 95%;
+    line-height: 1rem;
+}
+.start-context-menu .bottom {
+    overflow-x: hidden;
+    background-color: var(--color-gray);
+}
+
+
+
+.start-context-menu-item {
+    padding: 0.25rem;
+    height: 2.5rem;
+    line-height: 2rem;
+    color: var(--color-white);
+}
+.start-context-menu-item img {
+    height: 2rem;
+}

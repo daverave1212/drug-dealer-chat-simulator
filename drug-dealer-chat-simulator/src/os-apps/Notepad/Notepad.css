@@ -1,0 +1,10 @@
+
+
+.notepad-app, .notepad-app textarea {
+    min-width: 400px;
+    min-height: 400px;
+}
+
+.notepad-app textarea:focus {
+    outline: none;
+}

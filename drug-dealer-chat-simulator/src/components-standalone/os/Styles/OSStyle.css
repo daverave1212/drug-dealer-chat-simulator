@@ -5,28 +5,50 @@
     
     --color-highlight: rgb(150, 135, 125);
 
-    --color-gray: rgb(71, 54, 46);
+    --color-gray: rgb(71, 71, 71);
     --color-light-gray: rgb(160, 150, 150);
     --color-dark-red: rgb(222, 85, 85);
     
+    --color-white: rgb(249, 249, 249)    ;
     
-    
-    --task-bar-height: 2.25rem;
+    --task-bar-height: 2rem;
 
 
 
 
     --z-background: 0;
+    --z-desktop-icons: 10;
     --z-task-bar: 1000000;
+    --z-popup:    2000000;
 }
 
+body {
+    /* font-family: Tahoma, "Trebuchet MS", sans-serif; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.font {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.5px;
+}
+.white {
+    color: var(--color-white);
+}
+
+.os-highlight:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+        inset 8px 8px 20px 0px rgba(255, 255, 255, 0.175),
+        inset -8px -8px 20px 0px rgba(0, 0, 0, 0.1)
+    ;
+}
 
 .os-background {
     background: linear-gradient(var(--color-bg-1), var(--color-bg-2));
     padding-left: 0.5rem;
-    padding-right: 0.5rem;
 
-    color: white;
+    color: var(--color-white);
 }
 .os-bordered, .os-borders {
     border-radius: 8px;
