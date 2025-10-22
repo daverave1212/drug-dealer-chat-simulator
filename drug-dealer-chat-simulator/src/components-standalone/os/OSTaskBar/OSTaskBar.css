@@ -21,10 +21,33 @@
 }
 
 
-.start-menu img {
+.start-menu img,
+.os-task-bar .info img,
+.task-bar-app img
+{
     height: 1.25rem;
 }
 
-.start-menu .my-name {
+.start-menu .my-name,
+.os-task-bar .calendar,
+.task-bar-app .name
+{
     line-height: 1.75rem;
+}
+
+
+.os-task-bar .info {
+    position: absolute;
+    top: 0px;
+    right: 0.5rem;
+    height: var(--task-bar-height);
+    line-height: var(--task-bar-height);
+}
+
+.task-bar-app {
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+        inset 8px 8px 20px 0px rgba(255, 255, 255, 0.1),
+        inset -8px -8px 20px 0px rgba(0, 0, 0, 0.05)
 }
