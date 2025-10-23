@@ -3,9 +3,9 @@
     position: absolute;
 }
 
-/* .os-window .top {
-    height: 2.25rem;
-} */
+.os-window .top {
+    padding-left: 0.5rem;
+}
 
 .os-window-icon {
     position: absolute;

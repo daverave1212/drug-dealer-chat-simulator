@@ -13,6 +13,11 @@ import StartContextMenuContext from './global-state/StartContextMenuContext';
 import OSStartContextMenu from './components-standalone/os/OSStartContextMenu/OSStartContextMenu';
 import { ALL_APPS } from './services/app-manager';
 import OSOpenApps from './components-standalone/os/OSOpenApps/OSOpenApps';
+import { CurrentSceneContextProvider } from './global-state/CurrentSceneContext';
+import SceneRenderer from './components/SceneRenderer/SceneRenderer';
+import { MousePositionContextProvider } from './global-state/MousePositionContext';
+import { TooltipContextProvider } from './global-state/TooltipContext';
+import Tooltip from './components-standalone/os/Tooltip/Tooltip';
 
 const APP_CONFIG_TEMPLATE = {
   name: 'F-Spot',
@@ -28,20 +33,20 @@ function App() {
   const [isStartContextMenuOpen, setIsStartContextMenuOpen] = useState(false)
 
   return (
-    <div className="App">
+    <div className="App relative">
 
       <OpenAppsContextProvider>
       <StartContextMenuContext value={{isStartContextMenuOpen, setIsStartContextMenuOpen}}>
-        
-        <div className='screen'>
-          <OSStartContextMenu/>
-          <OSDesktopBackground/>
-          <OSDesktopIcons/>
-          <OSTaskBar>Jaunty Jackalope</OSTaskBar>
-          <OSOpenApps/>
-        </div>
+      <CurrentSceneContextProvider>
+      <MousePositionContextProvider>
+      <TooltipContextProvider>
 
+        <SceneRenderer/>
+        <Tooltip/>
 
+      </TooltipContextProvider>
+      </MousePositionContextProvider>
+      </CurrentSceneContextProvider>
       </StartContextMenuContext>
       </OpenAppsContextProvider>
 

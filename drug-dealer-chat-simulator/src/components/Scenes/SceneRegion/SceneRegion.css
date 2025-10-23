@@ -1,0 +1,18 @@
+
+.scene-region {
+    overflow: visible;
+}
+.scene-region:hover::before {
+    content: "";
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 50%
+    );
+    pointer-events: none;
+}

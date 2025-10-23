@@ -18,8 +18,10 @@
 
     --z-background: 0;
     --z-desktop-icons: 10;
+    --z-background-overlay: 10;
     --z-task-bar: 1000000;
     --z-popup:    2000000;
+    --z-tooltip:  3000000;
 }
 
 body {
@@ -46,9 +48,11 @@ body {
 
 .os-background {
     background: linear-gradient(var(--color-bg-1), var(--color-bg-2));
-    padding-left: 0.5rem;
 
     color: var(--color-white);
+}
+.os-background.darker {
+    background: linear-gradient(#5A5A5A, var(--color-bg-2));
 }
 .os-bordered, .os-borders {
     border-radius: 8px;

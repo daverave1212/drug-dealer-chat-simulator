@@ -2,13 +2,11 @@ import './ContextMenu.css'
 
 export default function ContextMenu({ className, style, isOpen, setIsOpen, children }) {
 
-    console.log(isOpen)
-
     if (!isOpen) {
         return <></>
     }
 
-    return (<div className="context-menu" onClick={evt => setIsOpen(false)}>
+    return (<div className={`context-menu ${className}`} onClick={evt => setIsOpen(false)} style={style}>
         { children }
     </div>)
 }

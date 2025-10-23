@@ -15,7 +15,7 @@
 }
 
 .start-context-menu .top input {
-    margin-left: calc(-0.5rem + 2.5%);
+    margin-left: calc(2.5%);
     width: 95%;
     line-height: 1rem;
 }
@@ -34,4 +34,22 @@
 }
 .start-context-menu-item img {
     height: 2rem;
+}
+
+.start-context-menu .user-name {
+    border-right: solid 1px gray;
+    padding-left: 0.5rem;
+    flex: 1;
+}
+
+.log-off {
+    line-height: 1rem;
+    font-weight: normal;
+
+    padding-top: 0.65rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    border: solid 1px var(--color-bg-1);
+    background-color: var(--color-gray);
 }

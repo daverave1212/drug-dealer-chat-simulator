@@ -1,0 +1,10 @@
+
+.room-background {
+    position: absolute;
+    z-index: var(--z-background);
+}
+
+
+.scene-region {
+    z-index: var(--z-background-overlay);
+}

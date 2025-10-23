@@ -1,0 +1,11 @@
+
+.tooltip {
+    z-index: var(--z-tooltip);
+    pointer-events: none;
+    padding: 1px;
+}
+
+.tooltip .content {
+    background-color: #444444;
+    padding: 0.25rem;
+}
