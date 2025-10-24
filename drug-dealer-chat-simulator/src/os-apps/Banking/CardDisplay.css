@@ -1,0 +1,97 @@
+
+
+
+.card {
+    width: 400px;
+    border-radius: 7px;
+}
+.card .top {
+    background-color: white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.card-icon {
+    width: 65px;
+    height: 64px;
+    
+    border-radius: 50%;
+    border-top: solid 2px rgb(216, 216, 216);
+    border-left: solid 1px rgb(216, 216, 216);
+    border-right: solid 1px rgb(216, 216, 216);
+    overflow: hidden;
+}
+.card-icon img {
+    height: 100%;
+}
+
+
+.card .light-gray {
+    color: var(--card-gray-color);
+}
+.card .dark-gray {
+    color: var(--card-font-color);
+}
+
+.card-info {
+    position: absolute;
+    font-size: 0.9rem;
+    top: 0.6rem;
+    right: 0.5rem;
+}
+
+
+.new-transfer:hover {
+    text-decoration: underline;
+}
+.card .money .decimals {
+    font-size: 1.25rem;
+}
+
+.card .name {
+    font-size: 0.9rem;
+}
+.card .info {
+    position: absolute;
+    font-size: 0.9rem;
+    right: 0.5rem;
+}
+
+.card .money {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.25rem;
+
+    text-align: right;
+    
+    font-weight: 200;
+    font-size: 2rem;
+
+    border-bottom: solid 1px var(--card-gray-color);
+}
+
+.card .subtext {
+    padding-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--card-gray-color);
+    letter-spacing: 0px;
+    padding-bottom: 0.5rem;
+}
+
+
+.card .bottom {
+    background-color: rgb(243, 245, 247);
+    color: var(--card-font-color-2);
+}
+
+
+
+.card .bottom .card-option {
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    padding-left: 0.75rem;
+}
+.card .plus {
+    font-size: 2rem;
+    line-height: 1.1rem;
+}

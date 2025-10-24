@@ -193,6 +193,21 @@ input:focus {
 .margin-bottom-4 {
   margin-bottom: 4rem;
 }
+.margin-0 {
+  margin: 0px;
+}
+.margin-half {
+  margin: 0.5rem;
+}
+.margin-quarter {
+  margin: 0.75rem;
+}
+.margin-3q {
+  margin: 0.75rem;
+}
+.margin-1 {
+  margin: 1rem;
+}
 
 .padding-0 {
   padding-top: 0px;
@@ -248,6 +263,23 @@ input:focus {
 .padding-right-1 {
   padding-right: 1rem;
 }
+.padding-bottom-0 {
+  padding-bottom: 0px;
+}
+.padding-bottom-quarter {
+  padding-bottom: 0.25rem;
+}
+.padding-bottom-half {
+  padding-bottom: 0.5rem;
+}
+.padding-bottom-3q {
+  padding-bottom: 0.75rem;
+}
+.padding-bottom-1 {
+  padding-bottom: 1rem;
+}
+
+
 .gap-quarter {
   gap: 0.25rem;
 }
@@ -318,6 +350,15 @@ input:focus {
 
 
 /*---------------- Aesthetics ----------------*/
+.tahoma {
+  font-family: Tahoma, sans-serif;
+}
+.verdana {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.arial {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .unselectable {
   user-select: none;
 }
@@ -407,3 +448,10 @@ img.cover, img.img-cover, img.object-fit-cover {
   font-size: 0.75em;
 }
 
+@font-face {
+  font-family: Inter;
+  src: url('./fonts/Inter/Inter-VariableFont_opsz\,wght.ttf');
+}
+.inter {
+  font-family: Inter;
+}

@@ -19,11 +19,6 @@ import { MousePositionContextProvider } from './global-state/MousePositionContex
 import { TooltipContextProvider } from './global-state/TooltipContext';
 import Tooltip from './components-standalone/os/Tooltip/Tooltip';
 
-const APP_CONFIG_TEMPLATE = {
-  name: 'F-Spot',
-  menuItems: ['Photo', 'Edit', 'View', 'Help']
-}
-
 function App() {
 
   // OS App manager

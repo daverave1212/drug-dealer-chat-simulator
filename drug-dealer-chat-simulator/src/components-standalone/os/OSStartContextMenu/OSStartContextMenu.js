@@ -63,30 +63,6 @@ export default function OSStartContextMenu() {
                 { Object.keys(ALL_APPS).map(appName => (
                     <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
                 )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
-                { Object.keys(ALL_APPS).map(appName => (
-                    <StartContextMenuItem appConfig={ALL_APPS[appName]}/>
-                )) }
             </div>
             <div className="os-background darker padding-quarter os-highlight pointer" onClick={onShutDown} style={{borderTop: 'solid 1px gray', paddingLeft: '0.75rem', height: '2.5rem', paddingTop: '0.35rem'}}>
                 <Icon src="/Icons/Shut Down.png" style={{paddingTop: '3px'}}/>Shut Down

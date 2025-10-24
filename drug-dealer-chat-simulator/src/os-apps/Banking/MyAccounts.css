@@ -1,0 +1,32 @@
+/* ------------ My Accounts ------------*/
+
+
+.my-accounts .cards {
+    padding: 1rem;
+    /* background: linear-gradient(45deg, var(--banking-color-2), var(--banking-color-1)); */
+    background-color: rgb(9, 97, 152);
+    border-right: solid 2px var(--banking-font-color);
+}
+
+.due-payment {
+    width: 250px;
+    background-color: white;
+    padding: 0.5rem;
+}
+
+.due-payment .due-in {
+    color: var(--card-gray-color);
+    font-size: 0.9rem;
+}
+
+.due-payment .title {
+    color: var(--card-font-color);
+}
+
+.due-payment .money {
+    position: absolute;
+    font-size: 1.25rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    font-weight: 400;
+}

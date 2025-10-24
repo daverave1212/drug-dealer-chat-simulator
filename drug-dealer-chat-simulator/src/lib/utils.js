@@ -264,6 +264,34 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function splitMoneyBy1000s(sum) {
+    if (sum < 0) {
+        sum = sum * -1
+    }
+    const sumStr = sum + ''
+    const parts = ['']
+    for (let i = 0; i < sumStr.length; i++) {
+        if (i % 4 == 3) {
+            parts.push('')
+        }
+        parts[parts.length - 1] += ('' + sumStr.charAt(i))
+    }
+    const newParts = parts.reverse()
+    newParts[0] = (sum < 0? '-': '') + newParts[0]
+    return newParts
+}
+export function getMoneyParts(sum) {
+    const integralSum = Math.floor(sum.toFixed(2))
+    const integralParts = splitMoneyBy1000s(integralSum)
+    let decimals = (sum - integralSum) * 100
+    if (decimals == 0) {
+        decimals = '00'
+    } else if (decimals < 10) {
+        decimals = '0' + decimals
+    }
+
+    return { integralParts, decimals }
+}
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }

@@ -1,0 +1,60 @@
+:root {
+    --card-gray-color: rgb(163, 181, 200);
+    --card-font-color: rgb(13, 67, 103);
+    --card-font-color-2: rgb(1, 103, 172);
+}
+
+:root {
+    --banking-color-1: rgb(238, 242, 254);
+    --banking-color-2: rgb(203, 213, 245);
+    --banking-font-color: rgb(128, 128, 165);
+}
+
+.banking, .banking * {
+    letter-spacing: 1px;
+}
+.banking {
+    padding: 2px;
+    padding-bottom: 1px;
+    background-color: var(--color-bg-1);
+}
+
+.banking-background {
+    background: linear-gradient(var(--banking-color-1), var(--banking-color-2));
+}
+
+.banking-div {
+    border-radius: 4px;
+    border-right: solid 3px rgb(167, 170, 187);
+    border-bottom: solid 3px rgb(167, 170, 187);
+}
+.banking-div .darker {
+    border-right: solid 3px rgb(120, 123, 139);
+    border-bottom: solid 3px rgb(120, 123, 139);
+}
+
+.banking-button {
+    min-width: 50px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    color: white;
+}
+
+.banking-title {
+    color: var(--banking-font-color);
+}
+.banking-underline {
+    padding-bottom: 0.5rem;
+    border-bottom: solid 2px var(--banking-font-color);
+}
+
+.banking .menu {
+    border-right: solid 2px var(--banking-font-color);
+    padding-right: 3rem;
+}
+
+
+
+
