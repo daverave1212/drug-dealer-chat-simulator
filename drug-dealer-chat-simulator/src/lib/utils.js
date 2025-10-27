@@ -125,6 +125,23 @@ export function mergeObjects(a, b) {
     }
     return newA
 }
+export function deleteNullKeys(obj) {
+    const newObj = {...obj}
+    for (const key of Object.keys(newObj)) {
+        if (newObj[key] == null) {
+            delete newObj[key]
+        }
+    }
+    return newObj
+}
+export function mergeObjectsIgnoreNull(a, b) {
+    const newA = deleteNullKeys(a)
+    const newB = deleteNullKeys(b)
+    for (const key of Object.keys(newB)) {
+        newA[key] = newB[key]
+    }
+    return newA
+}
 export function addManyObjects(arr) {
     if (arr.length == 0) {
         return {}
@@ -198,6 +215,14 @@ export function splitArrayEvenly(arr, nArrays) {
     }
     return arrays
 }
+export function splitArrayIntoChunks(array, nElements) {
+  const result = [];
+  for (let i = 0; i < array.length; i += nElements) {
+    result.push(array.slice(i, i + nElements));
+  }
+  return result;
+}
+
 export function uniqueElements(arr) {
     return [...new Set(arr)]
 }
@@ -211,6 +236,7 @@ export function withToggledElement(arr, elem) {
         return [...arr, elem]
     }
 }
+
 
 window.splitArrayEvenly = splitArrayEvenly
 
@@ -264,6 +290,62 @@ export function isCharDigit(char) {
 }
 
 // ---------------- Other Small Utilities ----------------
+export function getDaysInMonth(year, month) {
+  const date = new Date(year, month-1, 1);
+  const days = [];
+
+  while (date.getMonth() === month-1) {
+    days.push({
+      day: date.getDate(),
+      weekday: date.toLocaleDateString('en-US', { weekday: 'long' }) // e.g. "Monday"
+    });
+    date.setDate(date.getDate() + 1);
+  }
+
+  return days;
+}
+export function getDaysInMonthPaddedWithExtraDays(year, month, nDays) {
+  // month = 1–12 (January = 1)
+  const targetMonthIndex = month - 1;
+  const days = [];
+
+  // Get first & last days of the given month
+  const firstDay = new Date(year, targetMonthIndex, 1);
+  const lastDay = new Date(year, targetMonthIndex + 1, 0);
+
+  // Start nDays days before and end nDays days after
+  const start = new Date(firstDay);
+  start.setDate(firstDay.getDate() - nDays);
+
+  const end = new Date(lastDay);
+  end.setDate(lastDay.getDate() + nDays);
+
+  // Loop through dates
+  const date = new Date(start);
+  while (date <= end) {
+    days.push({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1, // back to 1–12
+      day: date.getDate(),
+      weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
+      isInTargetMonth: date.getMonth() === targetMonthIndex,
+    });
+    date.setDate(date.getDate() + 1);
+  }
+
+  return days;
+}
+export function getMonthName(monthNumber) {
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  return monthNames[monthNumber - 1] || null; // returns null if out of range
+}
+export function getNDaysInYearMonth(year, monthNumber) {
+    return new Date(year, monthNumber, 0).getDate();
+}
+
 export function splitMoneyBy1000s(sum) {
     if (sum < 0) {
         sum = sum * -1
@@ -557,6 +639,17 @@ export function getDOMNodeAttributes(node) {
     return Array
         .from(node.attribute)
         .reduce((soFar, nvp) => ({ ...soFar, [nvp.name]: nvp.value }), {})
+}
+
+export function onCtrlPlusKey(key, func) {
+    document.body.addEventListener('keydown', evt => {
+        console.log(evt.key)
+        if (evt.ctrlKey && evt.key == key) {
+            evt.stopPropagation()
+            evt.preventDefault()
+            func(evt)
+        }
+    })
 }
 
 // ---------------- React Small Utilities ----------------

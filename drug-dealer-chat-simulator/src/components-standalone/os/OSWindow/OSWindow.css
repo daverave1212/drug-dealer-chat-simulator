@@ -20,7 +20,7 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 
-    background: linear-gradient(rgb(230, 230, 230), rgb(205, 205, 205));
+    background: linear-gradient(var(--color-lighter-gray), rgb(205, 205, 205));
 }
 
 .os-window-title {

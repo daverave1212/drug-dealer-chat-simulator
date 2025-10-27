@@ -21,6 +21,8 @@
 /* Icon */
 .os-desktop-icon {
     padding: 0.5rem;
+    width: 90px;
+    height: 100px;
 }
 .os-desktop-icon:hover {
     border: 0px none rgba(100, 100, 100, 0);

@@ -16,7 +16,7 @@ export default function Tooltip({ children, className, style={} }) {
     console.log(`Tooltip updated: ${tooltipText} at ${mousePosition.x},${mousePosition.y}`)
 
     return <div className={`tooltip absolute pointer os-background shadowed darker ${className}`} style={{
-        left: `${mousePosition.x + 15}px`,
+        left: `${mousePosition.x + 32}px`,
         top: `${mousePosition.y + 5}px`,
         pointerEvents: 'none',
         ...style

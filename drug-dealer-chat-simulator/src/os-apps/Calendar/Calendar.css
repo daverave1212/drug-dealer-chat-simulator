@@ -1,0 +1,48 @@
+
+:root {
+    --calendar-blue: rgb(124, 162, 209);
+}
+
+.calendar .top {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    
+    background-color: var(--calendar-blue);
+    color: white;
+
+    font-weight: 300;
+}
+
+
+.calendar table {
+    border: none;
+    border-collapse: collapse;
+}
+.calendar td {
+    background-color: rgb(239, 239, 239);
+}
+.calendar td:hover {
+    cursor: default;
+    background-color: rgb(219, 219, 239);
+}
+.calendar th {
+    background-color: var(--color-lighter-gray);
+}
+.calendar th, .calendar td {
+    padding: 0.25rem;
+    border: none;
+}
+
+.calendar td.outside-this-month {
+    color: #CCCCCC;
+}
+.calendar td.in-the-past {
+    color: #DDDDDD;
+}
+.calendar td.today {
+    background-color: var(--calendar-blue);
+    color: white;
+}
+.calendar td.today:hover {
+    filter: opacity(0.5);
+}

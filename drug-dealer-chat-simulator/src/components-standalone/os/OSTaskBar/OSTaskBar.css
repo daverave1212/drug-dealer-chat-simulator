@@ -39,9 +39,12 @@
 .os-task-bar .info {
     position: absolute;
     top: 0px;
-    right: 0.5rem;
+    right: 0px;
     height: var(--task-bar-height);
     line-height: var(--task-bar-height);
+    
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 
 .task-bar-app {

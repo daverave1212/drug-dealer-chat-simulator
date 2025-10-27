@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import StartContextMenuContext from '../../../global-state/StartContextMenuContext'
 import { useGameCalendar, useGameClock, useUser } from '../../../global-state/AppData'
 import { OpenAppsContext } from '../../../global-state/OpenAppsContext'
+import { getMonthName } from '../../../lib/utils'
 
 function StartMenu() {
 
@@ -28,20 +29,27 @@ function StartMenu() {
 
 function TaskBarInfo() {
 
+
+    const { openApp } = useContext(OpenAppsContext)
     const [{ hours, minutes }] = useGameClock()
     const [{ year, month, day, weekday }] = useGameCalendar()
 
     const truncatedHour = hours < 10? '0' + hours: hours
+    const monthName = getMonthName(month).substring(0, 3)
+
+    function onCalendarClick() {
+        openApp('Calendar')
+    }
 
     return <div className='info flex'>
         <div className='calendar'>
             {weekday} {truncatedHour}:{minutes}
         </div>
-        <div className='padding-quarter padding-bottom-0' style={{paddingTop: '0.35rem'}}>
+        <div className='os-highlight padding-quarter padding-bottom-0' style={{paddingTop: '0.35rem'}} onClick={onCalendarClick}>
             <img src="/Icons/Apps/Calendar.png"/>
         </div>
         <div className='calendar'>
-            {year} {month} {day}
+            {year} {monthName} {day}
         </div>
     </div>
 

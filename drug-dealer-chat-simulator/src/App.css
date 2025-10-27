@@ -359,11 +359,23 @@ input:focus {
 .arial {
   font-family: Arial, Helvetica, sans-serif;
 }
+.times-new-roman {
+  font-family: 'Times New Roman', serif;
+}
+.garamond {
+  font-family: Garamond, serif;
+}
+.georgia {
+  font-family: Georgia, serif;
+}
 .unselectable {
   user-select: none;
 }
 .pointer, .cursor-pointer {
   cursor: pointer;
+}
+.help, .cursor-help {
+  cursor: help;
 }
 .strikethrough {
   text-decoration: line-through;

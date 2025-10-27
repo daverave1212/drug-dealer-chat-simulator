@@ -6,6 +6,7 @@ import './MyAccounts.css'
 import './CardDisplay.css'
 import Icon from '../../components/Icon/Icon'
 import { getMoneyParts, splitMoneyBy1000s } from '../../lib/utils'
+import TooltipHolder from '../../components-standalone/os/TooltipHolder/TooltipHolder'
 
 const GREEN_COLOR = 'rgb(0, 180, 90)'
 const RED_COLOR = 'rgb(180, 0, 0)'
@@ -27,6 +28,7 @@ function CardDisplay2({ name, subtitle, sum, info, icon, color }) {
                 <div className='light-gray info'>{info}</div>
                 <div className='dark-gray margin-top-half'>{subtitle}</div>
                 <div className='money' style={{color: moneyColor}}>
+                    { sum < 0? <span>- </span>: <></> }
                     <span>{integralParts.join('.')},</span>
                     <span className='decimals'>{decimals}</span> {CURRENCY}
                 </div>
@@ -44,21 +46,34 @@ function CardDisplay2({ name, subtitle, sum, info, icon, color }) {
     </div>)
 }
 
-function MyAccounts({ myBanking }) {
-
-    const [duePayments, setDuePayments] = useDuePayments()
-
+function DuePayment({ name, dueInDays, sum }) {
     const dueInText = nDays => nDays == 1? 'today': `in ${nDays} days`
     const formatMoney = sum => {
         const { integralParts, decimals } = getMoneyParts(sum)
         return integralParts.join('.') + ',' + decimals
     }
 
+    return <div className='due-payment banking-div flex column relative inter'>
+        <div className='title'>{name}</div>
+        <div className='due-in'>{dueInText(dueInDays)}</div>
+        <div className='money bold' style={{color: RED_COLOR}}>- {formatMoney(sum)} {CURRENCY}</div>
+    </div>
+}
+
+function MyAccounts({ myBanking }) {
+
+    const [duePayments, setDuePayments] = useDuePayments()
+    const [{accounts}, setBanking] = useBanking()
+
+    const debts = Object.keys(accounts)
+        .map(accName => accounts[accName])
+        .filter(acc => acc.sum < 0)
+    
+
     return <div className='flex row my-accounts'>
         <div className='cards flex column gap-1'>
             { Object.keys(myBanking.accounts).map(accountName => (
                 <CardDisplay2 {...myBanking.accounts[accountName]}/>
-                // <CardDisplay {...myBanking.accounts[accountName]}/>
             )) }
         </div>
         <div className='flex column padding-1'>
@@ -66,13 +81,14 @@ function MyAccounts({ myBanking }) {
             <div className='padding-half'></div>
             <div className='flex column gap-half'>
                 { duePayments.map(dp => (
-                    <div className='due-payment banking-div flex column relative inter'>
-                        <div className='title'>{dp.name}</div>
-                        <div className='due-in'>{dueInText(dp.dueInDays)}</div>
-                        <div className='money bold' style={{color: RED_COLOR}}>- {formatMoney(dp.sum)} {CURRENCY}</div>
-                    </div>
+                    <DuePayment {...dp}/>
                 )) }
-                <div><Icon src="/Icons/Home.png"/>Taxes</div>
+                { debts.map(acc => (
+                    <DuePayment name={"Debt"} dueInDays={7} sum={acc.sum}/>
+                ))}
+                <TooltipHolder tooltip={"Not paying on time may have legal consequences."}>
+                    <Icon src="/Icons/Home.png" top={2}/>Taxes
+                </TooltipHolder>
             </div>
         </div>
     </div>

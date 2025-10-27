@@ -1,3 +1,4 @@
+import { getNDaysInYearMonth, mergeObjectsIgnoreNull } from "../lib/utils";
 import { getStorage, setStorage, useStorage } from "../services/system-bridge";
 
 export const START_YEAR = 2013
@@ -5,9 +6,14 @@ export const CURRENCY = 'USD'
 
 
 // ----------- User ------------
+const USER_STATS_DEFAULT = {
+    satiety: 1,                     // 100%
+    energy: 1                       // 100%
+}
 export function useUser() {
     return useStorage('User', {
-        name: 'Jaunty Jackalope'
+        name: 'Jaunty Jackalope',
+        stats: USER_STATS_DEFAULT
     })
 }
 
@@ -22,10 +28,26 @@ export function useGameClock() {
 export function useGameCalendar() {
     return useStorage('GameCalendar', {
         year: START_YEAR,
-        month: 'Dec',
+        month: 12,
         day: 8,
         weekday: 'Sunday'
     })
+}
+export function setCalendarToNextDay() {
+    const date = getStorage('GameCalendar')
+    const nDaysThisMonth = getNDaysInYearMonth()
+
+    date.day += 1
+    if (date.day > nDaysThisMonth) {
+        date.day = 1
+        date.month += 1
+        if (date.month > 12) {
+            date.month = 1
+            date.year += 1
+        }
+    }
+
+    setStorage('GameCalendar', date)
 }
 
 
@@ -74,6 +96,34 @@ export function addMoneyToAccount(accountName, amount) {
     }
     myBanking.accounts[accountName].sum += amount
     setBanking(accountName, myBanking)
+}
+
+
+export const DuePaymentTypes = {
+    RENT: {
+        name: 'Rent',
+        sum: 3,
+        dueInDays: 2
+    },
+    FOOD: {
+        name: 'Food',
+        sum: 6.5,
+        dueInDays: 1
+    },
+    OTHER: {
+        name: 'Other',
+        sum: 10,
+        dueInDays: 1
+    }
+}
+export function addDuePayment(duePaymentTemplate) {
+    setDuePayments([...getDuePayments(), duePaymentTemplate])
+}
+export function setDuePayments(value) {
+    return setStorage('DuePayments', value)
+}
+export function getDuePayments() {
+    return getStorage('DuePayments')
 }
 export function useDuePayments() {
     return useStorage('DuePayments', [
