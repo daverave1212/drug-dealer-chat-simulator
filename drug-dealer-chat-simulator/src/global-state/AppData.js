@@ -33,6 +33,9 @@ export function useGameCalendar() {
         weekday: 'Sunday'
     })
 }
+export function getCalendarAndTimeNow() {
+    return { ...getStorage('GameCalendar'), ...getStorage('GameClock') }
+}
 export function setCalendarToNextDay() {
     const date = getStorage('GameCalendar')
     const nDaysThisMonth = getNDaysInYearMonth()
