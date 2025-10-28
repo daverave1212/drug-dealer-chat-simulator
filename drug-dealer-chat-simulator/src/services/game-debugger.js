@@ -1,4 +1,5 @@
 import { addDuePayment, DuePaymentTypes } from "../global-state/AppData";
+import { sendMessageInChat } from "../global-state/MessengerData";
 import { onCtrlPlusKey } from "../lib/utils";
 
 export function activateDebuggingInUseEffect() {
@@ -14,6 +15,11 @@ export function activateDebuggingInUseEffect() {
             sum: sum,
             dueInDays: 3
         })
+    })
+
+    onCtrlPlusKey('m', evt => {
+        console.log('Sending message from Mom')
+        sendMessageInChat('Mom', 'Mom', 'Hello there, dear!')
     })
 
 }

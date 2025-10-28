@@ -464,6 +464,14 @@ img.cover, img.img-cover, img.object-fit-cover {
   font-family: Inter;
   src: url('./fonts/Inter/Inter-VariableFont_opsz\,wght.ttf');
 }
+@font-face {
+  font-family: Pixel;
+  src: url('./fonts/PixelArial/PIXEARG_.TTF');
+}
+@font-face {
+  font-family: PixelBold;
+  src: url('./fonts/PixelArial/PIXEAB__.TTF');
+}
 .inter {
   font-family: Inter;
 }

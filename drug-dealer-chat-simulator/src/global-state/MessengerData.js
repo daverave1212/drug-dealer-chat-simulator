@@ -10,6 +10,7 @@ export const MessengerStatus = {
 
 export function useMessenger() {
     return useStorage('Messenger', {
+        activeChat: 'Mom',
         me: {
             name: 'Plasmid Salamander',
             status: MessengerStatus.ONLINE,
@@ -42,13 +43,13 @@ export function sendMessageInChat(chatter, messageFrom, message) {
         date: getCalendarAndTimeNow()
     }
 
-    const messengerContacts = getStorage('Messenger').contacts
+    const messengerData = getStorage('Messenger')
     
-    if (messengerContacts[chatter] == null) {
+    if (messengerData.contacts[chatter] == null) {
         console.error(`Messenger chatter ${chatter} not found`)
         return
     }
 
-    messengerContacts[chatter].chatHistory.push(messageObj)
-    setStorage('Messenger', messengerContacts)
+    messengerData.contacts[chatter].chatHistory.push(messageObj)
+    setStorage('Messenger', messengerData)
 }
