@@ -1,8 +1,9 @@
 import { useEffect } from "react"
 import { useUser } from "../../global-state/AppData"
-import { useMessenger } from "../../global-state/MessengerData"
+import { sendMessageInChat, useMessenger } from "../../global-state/MessengerData"
 import './Messenger.css'
 import Icon from "../../components/Icon/Icon"
+import { dialogues, findCurrentDialogueStep } from "../../services/dialogue-system"
 
 
 function MessengerContact({ className, name, status, statusText, src }) {
@@ -23,6 +24,57 @@ function IncomingMessage({ src, message, date }) {
         <div className="text">
             { message }
         </div>
+    </div>
+}
+function OutgoingMessage({ src, message, date }) {
+    return <div className="chat-message outgoing relative">
+        <img src={src} className="chat-message-avatar absolute"/>
+        <div className="text">
+            { message }
+        </div>
+    </div>
+}
+
+function SendReplyArea({ chatter }) {
+
+    function onClickOnReply(optionObj, optionText, lastMessage) {
+        sendMessageInChat(chatter, 'Me', optionText, lastMessage)
+    }
+
+    function SendReplyAreaContent() {
+        const [messengerData] = useMessenger()
+        const { activeChat, contacts } = messengerData
+
+        if (activeChat == null) {
+            return <></>
+        }
+        if (!(activeChat in contacts)) {
+            return <></>
+        }
+
+        const { chatHistory } = contacts[activeChat]
+        const lastMessage = chatHistory[chatHistory.length - 1]
+
+        if (lastMessage == null) {
+            return <></>
+        }
+
+        const thisDialogueStep = findCurrentDialogueStep(activeChat, lastMessage.message)
+
+        if (thisDialogueStep == null) {
+            return <></>
+        }
+        if (thisDialogueStep.options == null) {
+            return <></>
+        }
+
+        return Object.keys(thisDialogueStep.options).map(optionText => (
+            <div className="option pointer" onClick={evt => onClickOnReply(thisDialogueStep.options[optionText], optionText, lastMessage.message)}>{optionText}</div>
+        ))
+    }
+
+    return <div className="send-reply flex-row gap-half">
+        <SendReplyAreaContent/>
     </div>
 }
 
@@ -73,9 +125,10 @@ function MessengerApp() {
                     msg.from == activeChatContact.name?
                         <IncomingMessage src={activeChatContact.src} message={msg.message} date={msg.date}/>
                     :
-                        <div>{ msg.message }</div>
+                        <OutgoingMessage src={me.src} message={msg.message} date={msg.date}/>
                 )) }
             </div>
+            <SendReplyArea chatter={activeChatContact.name}/>
         </div>
     </div>)
 

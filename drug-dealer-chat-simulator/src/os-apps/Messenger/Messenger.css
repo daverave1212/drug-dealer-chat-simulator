@@ -119,20 +119,20 @@
     background-image: url(Background.png);
     background-size: cover;
     background-blend-mode: overlay;
-    background-color: rgba(226, 195, 255, 0.8);
+    background-color: rgba(242, 227, 255, 0.9);
     padding-top: 0.5rem;
 }
 .chat-message {
     max-width: 55%;
     font-size: 0.75rem;
 }
-.chat-message.incoming {
-    margin-left: 0.5rem;
-}
 .chat-message .chat-message-avatar {
     height: 1.75rem;
     width: 1.75rem;
     border-radius: 50%;
+}
+.chat-message.incoming {
+    margin-left: 0.5rem;
 }
 .chat-message.incoming .chat-message-avatar {
     left: 0px;
@@ -143,4 +143,38 @@
     margin-left: 2.5rem;
     background-color: white;
     padding: 0.5rem;
+}
+.chat-message.outgoing {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.chat-message.outgoing .chat-message-avatar {
+    right: 0.5rem;
+    bottom: 0px;
+}
+.chat-message.outgoing .text {
+    border-radius: 8px;
+    margin-right: 3rem;
+    background-color: var(--messenger-color-2);
+    color: white;
+    padding: 0.5rem;
+}
+
+
+/* ----------- My responses ------------*/
+.messenger .send-reply {
+    flex-wrap: wrap;
+    background-color: rgba(200, 175, 221, 0.9);
+    padding: 0.5rem;
+}
+.messenger .send-reply .option {
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+.messenger .send-reply .option:hover {
+    background-color: var(--messenger-color-dark);
+    color: white;
 }

@@ -1,3 +1,4 @@
+import { findCurrentDialogueStep, findNextDialogueStep } from "../services/dialogue-system";
 import { getStorage, setStorage, useStorage } from "../services/system-bridge";
 import { getCalendarAndTimeNow } from "./AppData";
 
@@ -36,7 +37,7 @@ export function useMessenger() {
     })
 }
 
-export function sendMessageInChat(chatter, messageFrom, message) {
+export function sendMessageInChat(chatter, messageFrom, message, lastMessage=null) {
     const messageObj = {
         from: messageFrom,
         message: message,
@@ -52,4 +53,25 @@ export function sendMessageInChat(chatter, messageFrom, message) {
 
     messengerData.contacts[chatter].chatHistory.push(messageObj)
     setStorage('Messenger', messengerData)
+
+    // Dialogue system
+    const isReply = messageFrom != chatter
+    const currentDialogueStep = findCurrentDialogueStep(chatter, lastMessage)
+    if (currentDialogueStep == null) {
+        return
+    }
+    if (isReply) {
+        if (lastMessage == null) {
+            console.error(`No or null lastMessage provided to sendMessageInChat as reply message in chat ${chatter} "${message}"`)
+            return
+        }
+        console.log({chatter, messageFrom, message, lastMessage})
+        const nextDialogueStepText = findNextDialogueStep(chatter, currentDialogueStep.options[message].next)
+        sendMessageInChat(chatter, chatter, nextDialogueStepText)
+    } else {  // messageFrom == chatter
+        if (currentDialogueStep.next != null) {
+            const nextDialogueStepText = findNextDialogueStep(chatter, currentDialogueStep.next)
+            sendMessageInChat(chatter, chatter, nextDialogueStepText)
+        }
+    }
 }
