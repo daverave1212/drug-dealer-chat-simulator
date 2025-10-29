@@ -94,7 +94,6 @@
     background-color: rgb(254, 253, 255);
     border-top: solid #665555 1px;
     display: flex;
-    flex-direction: column-reverse;
 }
 .messenger .contacts .messenger-contact:not(:first-child) {
     margin-top: 0.5rem;
@@ -123,6 +122,8 @@
     background-blend-mode: overlay;
     background-color: rgba(242, 227, 255, 0.9);
     padding-top: 0.5rem;
+    flex-direction: column-reverse;
+    overflow: auto;
 }
 .chat-message {
     max-width: 55%;
@@ -141,6 +142,7 @@
     bottom: 0px;
 }
 .chat-message.incoming .text {
+    display: inline-block;  /* So that the message scales with text */
     border-radius: 8px;
     margin-left: 2.5rem;
     background-color: white;

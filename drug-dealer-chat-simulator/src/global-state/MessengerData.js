@@ -1,5 +1,6 @@
 import { dialogues, findCurrentDialogueStep, findNextDialogueStep } from "../databases/dialogue/dialogue-system";
 import { getStorage, setStorage, useStorage } from "../services/system-bridge";
+import { getTimeSinceLastTick } from "../services/task-runner";
 import { getGameCalendar } from "./AppData";
 
 export const MessengerStatus = {
@@ -9,6 +10,15 @@ export const MessengerStatus = {
     IDLE: 'Idle.png'
 }
 
+if (getStorage('ScheduledMessages') == null) {
+    setStorage('ScheduledMessages', [])
+}
+export function useScheduledMessages() {
+    return useStorage('ScheduledMessages', [])
+}
+export function scheduleMessage(messageObj) {
+    setStorage('ScheduledMessages', [...getStorage('ScheduledMessages'), messageObj])
+}
 
 export function useMessenger() {
     return useStorage('Messenger', {
@@ -46,23 +56,41 @@ export function messengerChatTick() {
         console.warn(`Messenger data not initialized yet`)
         return
     }
-    const chatters = Object.keys(messengerData.contacts)
-    for (let i = 0; i < chatters.length; i++) {
-        const chatter = chatters[i]
-        const currentDialogueStepText = messengerData.contacts[chatter].currentDialogueStep
+    // First, send scheduled messages
+    const scheduledMessages = getStorage('ScheduledMessages')
+    if (scheduledMessages != null && scheduledMessages.length > 0) {
+        let scheduledMessage = scheduledMessages[scheduledMessages.length - 1]
+        const timeSinceLastTick = getTimeSinceLastTick()
+        if (timeSinceLastTick < scheduledMessage.delay) {
+            scheduledMessage.delay -= timeSinceLastTick
+            setStorage('ScheduledMessages', scheduledMessages)
+            return
+        }
 
-        if (currentDialogueStepText == null) {
-            continue
-        }
-        const currentDialogueStep = dialogues.contacts[chatter][currentDialogueStepText]
-        if (currentDialogueStep == null) {
-            throw `ERROR: Dialogue step does not exist: "${currentDialogueStepText}"`
-        }
-        
-        if (currentDialogueStep.next != null) {
-            sendMessageInChat(chatter, chatter, currentDialogueStep.next)
-        }
+        scheduledMessages.pop()
+        const { from, message } = scheduledMessage
+        setStorage('ScheduledMessages', scheduledMessages)
+        sendMessageInChat(from, from, message)
+        return
     }
+    // Then, continue with more messages
+    // const chatters = Object.keys(messengerData.contacts)
+    // for (let i = 0; i < chatters.length; i++) {
+    //     const chatter = chatters[i]
+    //     const currentDialogueStepText = messengerData.contacts[chatter].currentDialogueStep
+
+    //     if (currentDialogueStepText == null) {
+    //         continue
+    //     }
+    //     const currentDialogueStep = dialogues.contacts[chatter][currentDialogueStepText]
+    //     if (currentDialogueStep == null) {
+    //         throw `ERROR: Dialogue step does not exist: "${currentDialogueStepText}"`
+    //     }
+        
+    //     if (currentDialogueStep.next != null) {
+    //         sendMessageInChat(chatter, chatter, currentDialogueStep.next)
+    //     }
+    // }
 }
 
 export function sendMessageInChat(chatter, messageFrom, message) {
@@ -91,13 +119,27 @@ export function sendMessageInChat(chatter, messageFrom, message) {
     if (isReply) {
         const currentDialogueStep = dialogues.contacts[chatter][lastMessageText]
         const optionObject = currentDialogueStep.options[message]
-        if (optionObject.next == null) {
-            messengerData.contacts[chatter].currentDialogueStep = null
-        } else {
-            sendMessageInChat(chatter, chatter, optionObject.next)
-        }
+        scheduleMessage({
+            message: optionObject.next,
+            from: chatter,
+            delay: optionObject.next.length * 100
+        })
+        // if (optionObject.next == null) {
+        //     messengerData.contacts[chatter].currentDialogueStep = null
+        // } else {
+        //     messengerData.contacts[chatter].currentDialogueStep = optionObject.next
+        // }
     } else {
-        messengerData.contacts[chatter].currentDialogueStep = message
+        const currentDialogueStep = dialogues.contacts[chatter][message]
+        const nextDialogueStepText = currentDialogueStep.next
+        if (nextDialogueStepText != null) {
+            scheduleMessage({
+                message: nextDialogueStepText,
+                from: chatter,
+                delay: nextDialogueStepText.length * 100
+            })
+        }   
+        // messengerData.contacts[chatter].currentDialogueStep = message
     }
 
     // TODO: Still not working fine

@@ -1,9 +1,10 @@
 import { useEffect } from "react"
 import { useUser } from "../../global-state/AppData"
-import { sendMessageInChat, useMessenger } from "../../global-state/MessengerData"
+import { sendMessageInChat, useMessenger, useScheduledMessages } from "../../global-state/MessengerData"
 import './Messenger.css'
 import Icon from "../../components/Icon/Icon"
 import { dialogues, findCurrentDialogueStep } from "../../databases/dialogue/dialogue-system"
+import TypingBubble from "./TypingBubble"
 
 
 function MessengerContact({ className, name, status, statusText, src, onClick }) {
@@ -76,7 +77,7 @@ function SendReplyArea({ chatter }) {
         ))
     }
 
-    return <div className="send-reply flex-row gap-half">
+    return <div className="send-reply flex-row gap-half align-center">
         <SendReplyAreaContent/>
     </div>
 }
@@ -85,9 +86,11 @@ function MessengerApp() {
 
     const [user] = useUser()
     const [messengerData, setMessengerData] = useMessenger()
+    const [scheduledMessages] = useScheduledMessages()
 
     const { me, contacts } = messengerData
     const activeChatContact = contacts[messengerData.activeChat]
+    const lastScheduledMessage = scheduledMessages == null? null: scheduledMessages[scheduledMessages.length - 1]
 
     console.log({activeChatContact})
 
@@ -136,6 +139,10 @@ function MessengerApp() {
                     :
                         <OutgoingMessage src={me.src} message={msg.message} date={msg.date}/>
                 )) }
+                {/* Only for the chat bubble */}
+                { lastScheduledMessage != null && lastScheduledMessage.from == activeChatContact.name && (
+                    <IncomingMessage src={activeChatContact.src} message={<TypingBubble/>} date={{}}/>
+                ) }
             </div>
             <SendReplyArea chatter={activeChatContact.name}/>
         </div>
