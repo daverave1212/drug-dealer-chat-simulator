@@ -93,6 +93,8 @@
 .messenger .contacts {
     background-color: rgb(254, 253, 255);
     border-top: solid #665555 1px;
+    display: flex;
+    flex-direction: column-reverse;
 }
 .messenger .contacts .messenger-contact:not(:first-child) {
     margin-top: 0.5rem;
@@ -104,7 +106,7 @@
 /* ----------- Right Side ------------*/
 .messenger .right {
     border-left: solid 1px var(--messenger-color-dark);
-    min-width: 500px;
+    width: 625px;
 }
 .messenger .right .header {
     background-color: white;

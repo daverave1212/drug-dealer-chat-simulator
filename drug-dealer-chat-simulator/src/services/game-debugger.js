@@ -18,8 +18,8 @@ export function activateDebuggingInUseEffect() {
     })
 
     onCtrlPlusKey('m', evt => {
-        console.log('Sending message from Mom')
-        sendMessageInChat('Mom', 'Mom', 'Hello there, dear!')
+        console.log('Sending message from Boris')
+        sendMessageInChat('Boris', 'Boris', 'Hey')
     })
 
 }

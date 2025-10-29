@@ -4,7 +4,7 @@ import '../Styles/OSStyle.css'
 import { ALL_APPS } from '../../../services/app-manager'
 import { useContext } from 'react'
 import StartContextMenuContext from '../../../global-state/StartContextMenuContext'
-import { useGameCalendar, useGameClock, useUser } from '../../../global-state/AppData'
+import { useGameCalendar, useUser } from '../../../global-state/AppData'
 import { OpenAppsContext } from '../../../global-state/OpenAppsContext'
 import { getMonthName } from '../../../lib/utils'
 
@@ -31,8 +31,7 @@ function TaskBarInfo() {
 
 
     const { openApp } = useContext(OpenAppsContext)
-    const [{ hours, minutes }] = useGameClock()
-    const [{ year, month, day, weekday }] = useGameCalendar()
+    const [{ year, month, day, weekday, hours, minutes }] = useGameCalendar()
 
     const truncatedHour = hours < 10? '0' + hours: hours
     const monthName = getMonthName(month).substring(0, 3)

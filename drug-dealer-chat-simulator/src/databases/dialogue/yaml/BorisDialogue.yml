@@ -1,0 +1,66 @@
+
+# NOTE: Chatter dialogue lines may NEVER repeat
+
+Hey: next
+You're Jack from block 3A, no?:
+  - Depends who's asking...: next
+  - Who's this?: next
+  - Yeah, do I know you?: next
+Boris, from the next block: next
+We've seen eachother a few times, I think:
+  - Oh, the guy with the noisy toolbox.: next
+  - Yeah I've seen you around.: next
+  - Ah, right, hey Boris!:
+      Hello!: Look I didn't mean to bother you
+That's me: next
+Look I didn't mean to bother you: next
+You still looking for work?:
+  - Oh yes, do you have something?: Quick stuff, nothing fancy
+  - What kind of work?: Quick stuff, nothing fancy
+  - Who told you that?:
+      Didn't need anyone to tell me:
+        You can tell when someone is desperate, you know?:
+          Anyway: next
+I sometimes have small jobs: next
+Quick stuff, nothing fancy, $15:
+  - I'm listening: I just need a package delivered
+  - Is this something illegal?:
+      Haha, of course not: I just need a package delivered
+  - Sorry, I'm looking for a real job:
+      Oh:
+        Too bad \:(:
+          Ok well, if you interested, let me know ok?: I'll be around
+I'll be around:
+  - About that job...:
+      Oh you want to help:
+        Great!: next
+I just need a package delivered: next
+It's close by: next
+Do you have a car?:
+  - No: next
+No problem: next
+You can walk, it's close:
+  - Why not do it yourself?:
+      persuasion-71:
+        pass: Let's just say my ex
+        fail: Would rather not talk about that...
+  - Sounds good:
+      Perfect!: Here's what you need to do
+  - What's in the package?:
+      Some cosmetics... and a bit of cash:
+        It's for a lady friend:
+          Anyway, about the job
+Let's just say my ex isn't happy to see me: Anyway, about the job
+Would rather not talk about that...: Anyway, about the job
+Anyway, about the job. You in?:
+  - Yes, let's do it: Great, here's what you need to do
+  - Sorry, really not what I'm looking for:
+      Ok, no problem: I'll let you know if I have something else.
+I'll let you know if I have something else.: end
+Great, here's what you need to do: next
+Come to my door and I'll give you the package and the address: next
+Just log off of your computer and head to the door: next
+There, just decide what job you want to do: next
+Each job has a chance of success: next
+Being hungry or tired or such makes jobs more difficult: next
+I'll be waiting, good luck: end

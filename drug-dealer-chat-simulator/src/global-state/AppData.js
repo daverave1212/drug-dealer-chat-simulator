@@ -19,38 +19,53 @@ export function useUser() {
 
 
 // ----------- Time ------------
-export function useGameClock() {
-    return useStorage('GameClock', {
-        hours: 8,
-        minutes: 37
-    })
-}
 export function useGameCalendar() {
     return useStorage('GameCalendar', {
         year: START_YEAR,
         month: 12,
         day: 8,
-        weekday: 'Sunday'
+        weekday: 'Sunday',
+        hours: 8,
+        minutes: 37
     })
 }
-export function getCalendarAndTimeNow() {
-    return { ...getStorage('GameCalendar'), ...getStorage('GameClock') }
+export function getGameCalendar() {
+    return getStorage('GameCalendar')
 }
-export function setCalendarToNextDay() {
-    const date = getStorage('GameCalendar')
+export function setGameCalendar(calendar) {
+    return setStorage('GameCalendar', calendar)
+}
+export function setCalendarToNextDay(givenCalendar=null) {
+    const date = givenCalendar ?? getStorage('GameCalendar')
     const nDaysThisMonth = getNDaysInYearMonth()
 
     date.day += 1
     if (date.day > nDaysThisMonth) {
         date.day = 1
         date.month += 1
-        if (date.month > 12) {
-            date.month = 1
-            date.year += 1
-        }
+    }
+    if (date.month > 12) {
+        date.month = 1
+        date.year += 1
     }
 
     setStorage('GameCalendar', date)
+}
+export function passTime({ hours=0, minutes=0 }) {
+    const newCalendar = getGameCalendar()
+    newCalendar.minutes += minutes
+    if (newCalendar.minutes >= 60) {
+        newCalendar.minutes -= 60
+        newCalendar.hours += 1
+    }
+    newCalendar.hours += hours
+    if (newCalendar.hours >= 24) {
+        newCalendar.hours -= 24
+        setCalendarToNextDay(newCalendar)
+    } else {
+        setGameCalendar(newCalendar)
+    }
+
 }
 
 

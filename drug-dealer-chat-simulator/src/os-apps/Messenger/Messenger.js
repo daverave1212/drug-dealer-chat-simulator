@@ -3,11 +3,14 @@ import { useUser } from "../../global-state/AppData"
 import { sendMessageInChat, useMessenger } from "../../global-state/MessengerData"
 import './Messenger.css'
 import Icon from "../../components/Icon/Icon"
-import { dialogues, findCurrentDialogueStep } from "../../services/dialogue-system"
+import { dialogues, findCurrentDialogueStep } from "../../databases/dialogue/dialogue-system"
 
 
-function MessengerContact({ className, name, status, statusText, src }) {
-    return <div className={"messenger-contact flex row pointer " + className}>
+function MessengerContact({ className, name, status, statusText, src, onClick }) {
+    return <div className={"messenger-contact flex row pointer " + className} onClick={() => {
+        console.log('iggiig')
+        onClick()
+    }}>
         <div className="avatar-box">
             <img src={src}/>
         </div>
@@ -38,7 +41,7 @@ function OutgoingMessage({ src, message, date }) {
 function SendReplyArea({ chatter }) {
 
     function onClickOnReply(optionObj, optionText, lastMessage) {
-        sendMessageInChat(chatter, 'Me', optionText, lastMessage)
+        sendMessageInChat(chatter, 'Me', optionText)
     }
 
     function SendReplyAreaContent() {
@@ -86,10 +89,16 @@ function MessengerApp() {
     const { me, contacts } = messengerData
     const activeChatContact = contacts[messengerData.activeChat]
 
+    console.log({activeChatContact})
+
     useEffect(() => {
         messengerData.me.name = user.name
         setMessengerData(messengerData)
     }, [])
+
+    function onClickOnContact(contactName) {
+        setMessengerData({...messengerData, activeChat: contactName})
+    }
     
     return (<div className="messenger flex row">
         <div className="left flex column">
@@ -112,7 +121,7 @@ function MessengerApp() {
             </div>
 
             <div className="contacts flex column padding-half">
-                { Object.keys(contacts).map(contactName => <MessengerContact {...contacts[contactName]}/>) }
+                { Object.keys(contacts).map(contactName => <MessengerContact {...contacts[contactName]} onClick={evt => onClickOnContact(contactName)}/>) }
             </div>
 
         </div>

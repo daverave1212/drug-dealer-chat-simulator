@@ -1,6 +1,6 @@
-import { findCurrentDialogueStep, findNextDialogueStep } from "../services/dialogue-system";
+import { dialogues, findCurrentDialogueStep, findNextDialogueStep } from "../databases/dialogue/dialogue-system";
 import { getStorage, setStorage, useStorage } from "../services/system-bridge";
-import { getCalendarAndTimeNow } from "./AppData";
+import { getGameCalendar } from "./AppData";
 
 export const MessengerStatus = {
     ONLINE: 'Online.png',
@@ -8,6 +8,7 @@ export const MessengerStatus = {
     DND: 'DoNotDisturb.png',
     IDLE: 'Idle.png'
 }
+
 
 export function useMessenger() {
     return useStorage('Messenger', {
@@ -24,27 +25,59 @@ export function useMessenger() {
                 status: MessengerStatus.ONLINE,
                 statusText: 'I am using Messenger!',
                 src: '/Messenger/Avatars/Mom.jpg',
-                chatHistory: []
+                chatHistory: [],
+                currentDialogueStep: null
             },
             'Boris': {
                 name: 'Boris',
                 status: MessengerStatus.DND,
                 statusText: 'work hard play hard',
                 src: '/Messenger/Avatars/Boris.jpg',
-                chatHistory: []
+                chatHistory: [],
+                currentDialogueStep: null
             },
         }
     })
 }
 
-export function sendMessageInChat(chatter, messageFrom, message, lastMessage=null) {
+export function messengerChatTick() {
+    const messengerData = getStorage('Messenger')
+    if (messengerData == null) {    // Not initialized
+        console.warn(`Messenger data not initialized yet`)
+        return
+    }
+    const chatters = Object.keys(messengerData.contacts)
+    for (let i = 0; i < chatters.length; i++) {
+        const chatter = chatters[i]
+        const currentDialogueStepText = messengerData.contacts[chatter].currentDialogueStep
+
+        if (currentDialogueStepText == null) {
+            continue
+        }
+        const currentDialogueStep = dialogues.contacts[chatter][currentDialogueStepText]
+        if (currentDialogueStep == null) {
+            throw `ERROR: Dialogue step does not exist: "${currentDialogueStepText}"`
+        }
+        
+        if (currentDialogueStep.next != null) {
+            sendMessageInChat(chatter, chatter, currentDialogueStep.next)
+        }
+    }
+}
+
+export function sendMessageInChat(chatter, messageFrom, message) {
+    
+    // Handle messenger texts
     const messageObj = {
         from: messageFrom,
         message: message,
-        date: getCalendarAndTimeNow()
+        date: getGameCalendar()
     }
 
     const messengerData = getStorage('Messenger')
+    const thisChatHistory = messengerData.contacts[chatter].chatHistory
+    const lastMessageIndex = (thisChatHistory?.length - 1) ?? -1
+    const lastMessageText = thisChatHistory?.[lastMessageIndex]?.message
     
     if (messengerData.contacts[chatter] == null) {
         console.error(`Messenger chatter ${chatter} not found`)
@@ -52,26 +85,22 @@ export function sendMessageInChat(chatter, messageFrom, message, lastMessage=nul
     }
 
     messengerData.contacts[chatter].chatHistory.push(messageObj)
-    setStorage('Messenger', messengerData)
 
     // Dialogue system
     const isReply = messageFrom != chatter
-    const currentDialogueStep = findCurrentDialogueStep(chatter, lastMessage)
-    if (currentDialogueStep == null) {
-        return
-    }
     if (isReply) {
-        if (lastMessage == null) {
-            console.error(`No or null lastMessage provided to sendMessageInChat as reply message in chat ${chatter} "${message}"`)
-            return
+        const currentDialogueStep = dialogues.contacts[chatter][lastMessageText]
+        const optionObject = currentDialogueStep.options[message]
+        if (optionObject.next == null) {
+            messengerData.contacts[chatter].currentDialogueStep = null
+        } else {
+            sendMessageInChat(chatter, chatter, optionObject.next)
         }
-        console.log({chatter, messageFrom, message, lastMessage})
-        const nextDialogueStepText = findNextDialogueStep(chatter, currentDialogueStep.options[message].next)
-        sendMessageInChat(chatter, chatter, nextDialogueStepText)
-    } else {  // messageFrom == chatter
-        if (currentDialogueStep.next != null) {
-            const nextDialogueStepText = findNextDialogueStep(chatter, currentDialogueStep.next)
-            sendMessageInChat(chatter, chatter, nextDialogueStepText)
-        }
+    } else {
+        messengerData.contacts[chatter].currentDialogueStep = message
     }
+
+    // TODO: Still not working fine
+
+    setStorage('Messenger', messengerData)
 }
